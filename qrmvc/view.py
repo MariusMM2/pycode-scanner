@@ -5,8 +5,6 @@ from PIL import Image, ImageTk
 from qrmvc.TextWithVar import TextWithVar
 from qrmvc.VerticalScrolledFrame import VerticalScrolledFrame
 
-PICTURE_SIZE = 300
-
 
 class QRGeneratorView:
     def __init__(self, controller):
@@ -40,8 +38,6 @@ class QRGeneratorView:
                                          command=lambda: self.controller.generate(self.get_form(),
                                                                                   self.type_ctrl.get()))
         self.generate_button.grid(column=3, row=2, sticky='nesw')
-
-        self.set_picture('sample.png')
 
         self.form_dict = {}
 
@@ -81,7 +77,7 @@ class QRGeneratorView:
 
     def set_picture(self, file_name):
         load = Image.open(file_name)
-        load = load.resize((PICTURE_SIZE, PICTURE_SIZE), Image.ANTIALIAS)
+        load = load.resize((self.controller.picture_size, self.controller.picture_size), Image.ANTIALIAS)
         render = ImageTk.PhotoImage(load)
 
         if hasattr(self, 'image_label'):
@@ -93,7 +89,7 @@ class QRGeneratorView:
         self.image_label.grid(column=2, columnspan=2, row=0, rowspan=2)
 
     def delete_picture(self):
-        self.set_picture('blank.png')
+        self.set_picture(self.controller.default_picture)
 
     @staticmethod
     def new_string_var(value):

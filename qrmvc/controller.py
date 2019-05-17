@@ -1,4 +1,5 @@
 from tkinter import filedialog
+
 import pyqrcode
 
 import qrmvc.model
@@ -9,9 +10,14 @@ import qrmvc.view
 class QRGenerator:
     def __init__(self):
         self.model = qrmvc.model.QRGenerator()
+
+        # config related
         self.title = self.model.title
         self.form_types = self.model.form_types
         self.input_forms = self.model.input_forms
+        self.default_picture = self.model.default_picture
+        self.temp_picture = self.model.temp_picture
+        self.picture_size = self.model.picture_size
 
         self.view = qrmvc.view.QRGeneratorView(self)
         self.select_type(self.form_types[0])
@@ -38,9 +44,6 @@ class QRGenerator:
 
     def clear(self):
         self.view.delete_picture()
-
-    def test(self):
-        self.set_form(*self.model.get_form())
 
     def set_form(self, form, form_type):
         self.clear()
@@ -78,6 +81,5 @@ class QRGenerator:
         if content_value is not None:
             print(f"content: {content_value}")
             url = pyqrcode.create(content_value, error='L')
-            filename = 'code.png'
-            url.png(filename, scale=6, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xff])
-            self.view.set_picture(filename)
+            url.png(self.temp_picture)
+            self.view.set_picture(self.temp_picture)

@@ -8,11 +8,9 @@ class QRGenerator:
             self.title = config['title']
             self.input_forms = config['input_forms']
             self.form_types = list(self.input_forms)
-        with open('sample.json') as sample_form_file:
-            self.sample_form = json.load(sample_form_file)
-
-    def get_form(self):
-        return self.sample_form["form"], self.sample_form["type"]
+            self.default_picture = config['default_picture']
+            self.temp_picture = config['temp_picture']
+            self.picture_size = config['picture_size']
 
     @staticmethod
     def load_form(filename):

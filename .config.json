@@ -1,10 +1,23 @@
 {
   "title": "QR Code Generator",
-
+  "default_picture": "blank.png",
+  "temp_picture": "temp.png",
+  "picture_size": 300,
   "input_forms": {
-    "URL": ["Website (URL)"],
-    "SMS": ["Phone number", "Message"],
-    "Text": ["Text"],
-    "Email": ["Recipient", "Subject", "Body#big"]
+    "URL": [
+      "Website (URL)"
+    ],
+    "SMS": [
+      "Phone number",
+      "Message"
+    ],
+    "Text": [
+      "Text"
+    ],
+    "Email": [
+      "Recipient",
+      "Subject",
+      "Body#big"
+    ]
   }
 }
