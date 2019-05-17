@@ -1,0 +1,7 @@
+{
+  "type": "SMS",
+  "form": {
+    "Phone number": "1234567",
+    "Message": "Hello Tkinter"
+  }
+}

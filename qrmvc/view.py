@@ -1,6 +1,10 @@
 import tkinter as tk
 
+from PIL import Image, ImageTk
+
 from qrmvc.VerticalScrolledFrame import VerticalScrolledFrame
+
+PICTURE_SIZE = 300
 
 
 class QRGeneratorView:
@@ -11,35 +15,77 @@ class QRGeneratorView:
         self.window.title(self.controller.title)
 
         self.type_ctrl = tk.StringVar(self.window)
-        self.type_ctrl.set(self.controller.code_types[0])
+        self.type_ctrl.set(self.controller.form_types[0])
 
-        self.select_type_menu = tk.OptionMenu(self.window, self.type_ctrl, *self.controller.code_types, command=print)
+        self.select_type_menu = tk.OptionMenu(self.window, self.type_ctrl, *self.controller.form_types,
+                                              command=self.controller.select_type)
         self.select_type_menu.grid(column=0, row=0, sticky='nesw')
 
         self.scroll_frame = VerticalScrolledFrame(self.window)
         self.scroll_frame.grid(column=0, columnspan=2, row=1, sticky='nesw')
 
-        for i in range(0, 20):
-            field_label = tk.Label(self.scroll_frame.interior, anchor='w', text='Field ' + str(i))
+        self.load_button = tk.Button(self.window, text="Load from file", command=self.controller.load_file)
+        self.load_button.grid(column=0, row=2, sticky='nesw')
+
+        self.save_button = tk.Button(self.window, text="Save to file",
+                                     command=lambda: self.controller.save_file({"type": self.type_ctrl.get(), "form": self.get_form()}))
+        self.save_button.grid(column=1, row=2, sticky='nesw')
+
+        self.clear_button = tk.Button(self.window, text="Clear", command=lambda: self.controller.select_type(self.type_ctrl.get()))
+        self.clear_button.grid(column=2, row=2, sticky='nesw')
+
+        self.generate_button = tk.Button(self.window, text="Generate", command=self.controller.test)
+        self.generate_button.grid(column=3, row=2, sticky='nesw')
+
+        self.set_picture('sample.png')
+
+        self.form_dict = {}
+
+    def set_form(self, form, form_type):
+        self.type_ctrl.set(form_type)
+
+        previous_forms = self.scroll_frame.interior.pack_slaves()
+        for l in previous_forms:
+            l.destroy()
+
+        form_fields = form.keys()
+
+        self.form_dict = {str(field): QRGeneratorView.temp(form[field]) for field in form_fields}
+        print(self.form_dict)
+
+        for field_name in form_fields:
+            field_label = tk.Label(self.scroll_frame.interior, anchor='w', text=field_name)
             field_label.pack()
-            field = tk.Entry(self.scroll_frame.interior)
-            field.insert(tk.END, 'Field ' + str(i))
+
+            field = tk.Entry(self.scroll_frame.interior, textvariable=self.form_dict[field_name])
             field.config(highlightbackground='black', highlightthickness=1)
             field.pack()
+
             blank_label = tk.Label(self.scroll_frame.interior)
             blank_label.pack()
 
-        self.load_button = tk.Button(self.window, text="Load from file", command=lambda: print("Load from file"))
-        self.load_button.grid(column=0, row=2, sticky='nesw')
+    def get_form(self):
 
-        self.save_button = tk.Button(self.window, text="Save to file", command=lambda: print("Save to file"))
-        self.save_button.grid(column=1, row=2, sticky='nesw')
+        return {k: v.get() for k, v in self.form_dict.items()}
 
-        self.clear_button = tk.Button(self.window, text="Clear", command=lambda: print("Clear"))
-        self.clear_button.grid(column=2, row=2, sticky='nesw')
+    def set_picture(self, file_name):
+        load = Image.open(file_name)
+        load = load.resize((PICTURE_SIZE, PICTURE_SIZE), Image.ANTIALIAS)
+        render = ImageTk.PhotoImage(load)
 
-        self.generate_button = tk.Button(self.window, text="Generate", command=lambda: print("Generate"))
-        self.generate_button.grid(column=3, row=2, sticky='nesw')
+        if hasattr(self, 'image_label'):
+            self.image_label.grid_forget()
 
-        self.code_canvas = tk.Canvas(self.window, bg="red")
-        self.code_canvas.grid(column=2, columnspan=2, row=0, rowspan=2, sticky='nesw')
+        # noinspection PyAttributeOutsideInit
+        self.image_label = tk.Label(self.window, image=render)
+        self.image_label.image = render
+        self.image_label.grid(column=2, columnspan=2, row=0, rowspan=2)
+
+    def delete_picture(self):
+        self.set_picture('blank.png')
+
+    @staticmethod
+    def temp(value):
+        asd = tk.StringVar()
+        asd.set(value)
+        return asd

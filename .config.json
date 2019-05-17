@@ -1,8 +1,14 @@
 {
   "title": "QR Code Generator",
-  "code_types": [
+  "form_types": [
     "URL",
     "SMS",
     "Text"
-  ]
+  ],
+
+  "input_forms": {
+    "URL": ["Website (URL)"],
+    "SMS": ["Phone number", "Message"],
+    "Text": ["Text"]
+  }
 }
