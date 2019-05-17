@@ -1,0 +1,2 @@
+class QRGenerator:
+    pass
