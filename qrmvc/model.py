@@ -6,8 +6,8 @@ class QRGenerator:
         with open('.config.json') as config_file:
             config = json.load(config_file)
             self.title = config['title']
-            self.form_types = config['form_types']
             self.input_forms = config['input_forms']
+            self.form_types = list(self.input_forms)
         with open('sample.json') as sample_form_file:
             self.sample_form = json.load(sample_form_file)
 
