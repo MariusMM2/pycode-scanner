@@ -1,4 +1,5 @@
 import json
+import os
 
 
 class QRGenerator:
@@ -25,3 +26,10 @@ class QRGenerator:
     def save_form(filename, form):
         with open(filename, "w+") as form_file:
             json.dump(form, form_file)
+
+    def delete_temp(self):
+        try:
+            print("removing temp file")
+            os.remove(self.temp_picture)
+        except FileNotFoundError:
+            pass

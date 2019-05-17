@@ -1,4 +1,5 @@
 import qrmvc.controller
 
 if __name__ == '__main__':
-    qrmvc.controller.QRGenerator()
+    controller = qrmvc.controller.QRGenerator()
+    controller.model.delete_temp()

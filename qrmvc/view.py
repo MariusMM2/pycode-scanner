@@ -34,10 +34,14 @@ class QRGeneratorView:
                                       command=lambda: self.controller.select_type(self.type_ctrl.get()))
         self.clear_button.grid(column=2, row=2, sticky='nesw')
 
+        self.save_code_button = tk.Button(self.window, text="Save code to file", state=tk.DISABLED,
+                                          command=self.controller.save_code_file)
+        self.save_code_button.grid(column=3, row=2, sticky='nesw')
+
         self.generate_button = tk.Button(self.window, text="Generate",
                                          command=lambda: self.controller.generate(self.get_form(),
                                                                                   self.type_ctrl.get()))
-        self.generate_button.grid(column=3, row=2, sticky='nesw')
+        self.generate_button.grid(column=4, row=2, sticky='nesw')
 
         self.form_dict = {}
 
@@ -86,10 +90,12 @@ class QRGeneratorView:
         # noinspection PyAttributeOutsideInit
         self.image_label = tk.Label(self.window, image=render)
         self.image_label.image = render
-        self.image_label.grid(column=2, columnspan=2, row=0, rowspan=2)
+        self.image_label.grid(column=2, columnspan=3, row=0, rowspan=2)
+        self.save_code_button.config(state='normal')
 
     def delete_picture(self):
         self.set_picture(self.controller.default_picture)
+        self.save_code_button.config(state='disabled')
 
     @staticmethod
     def new_string_var(value):
