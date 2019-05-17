@@ -4,6 +4,7 @@
   "input_forms": {
     "URL": ["Website (URL)"],
     "SMS": ["Phone number", "Message"],
-    "Text": ["Text"]
+    "Text": ["Text"],
+    "Email": ["Recipient", "Subject", "Body#big"]
   }
 }

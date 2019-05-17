@@ -2,6 +2,7 @@ import tkinter as tk
 
 from PIL import Image, ImageTk
 
+from qrmvc.TextWithVar import TextWithVar
 from qrmvc.VerticalScrolledFrame import VerticalScrolledFrame
 
 PICTURE_SIZE = 300
@@ -36,7 +37,8 @@ class QRGeneratorView:
         self.clear_button.grid(column=2, row=2, sticky='nesw')
 
         self.generate_button = tk.Button(self.window, text="Generate",
-                                         command=lambda: self.controller.generate(self.get_form(), self.type_ctrl.get()))
+                                         command=lambda: self.controller.generate(self.get_form(),
+                                                                                  self.type_ctrl.get()))
         self.generate_button.grid(column=3, row=2, sticky='nesw')
 
         self.set_picture('sample.png')
@@ -52,19 +54,26 @@ class QRGeneratorView:
 
         form_fields = form.keys()
 
-        self.form_dict = {str(field): QRGeneratorView.temp(form[field]) for field in form_fields}
+        self.form_dict = {str(field): QRGeneratorView.new_string_var(form[field]) for field in form_fields}
         print(self.form_dict)
 
         for field_name in form_fields:
-            field_label = tk.Label(self.scroll_frame.interior, anchor='w', text=field_name)
+            is_big = '#big' in field_name
+            field_name_display = field_name[:field_name.find('#big')] if is_big else field_name
+
+            print(field_name_display)
+
+            field_label = tk.Label(self.scroll_frame.interior, anchor='w', text=field_name_display)
             field_label.pack()
 
-            field = tk.Entry(self.scroll_frame.interior, textvariable=self.form_dict[field_name])
+            if is_big:
+                field = TextWithVar(self.scroll_frame.interior, textvariable=self.form_dict[field_name],
+                                    borderwidth=1, relief="sunken", height=10, width=23, )
+                pass
+            else:
+                field = tk.Entry(self.scroll_frame.interior, textvariable=self.form_dict[field_name])
             field.config(highlightbackground='black', highlightthickness=1)
             field.pack()
-
-            blank_label = tk.Label(self.scroll_frame.interior)
-            blank_label.pack()
 
     def get_form(self):
 
@@ -87,7 +96,7 @@ class QRGeneratorView:
         self.set_picture('blank.png')
 
     @staticmethod
-    def temp(value):
+    def new_string_var(value):
         asd = tk.StringVar()
         asd.set(value)
         return asd
