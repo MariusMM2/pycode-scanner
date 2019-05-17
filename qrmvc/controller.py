@@ -1,4 +1,5 @@
 from tkinter import filedialog
+import pyqrcode
 
 import qrmvc.model
 import qrmvc.view
@@ -26,21 +27,17 @@ class QRGenerator:
 
         self.set_form(*self.model.load_form(filename))
 
-    def save_file(self, form):
+    def save_file(self, form, form_type):
 
         filename = filedialog.asksaveasfilename(initialdir="/", title="Select location", filetypes=(
             ("json files", "*.json"), ("all files", "*.*")))
 
         print(f"Saving {form} to {filename}")
 
-        self.model.save_form(filename, form)
+        self.model.save_form(filename, {"type": form_type, "form": form})
 
     def clear(self):
         self.view.delete_picture()
-
-    def generate(self):
-        form = self.view.get_form()
-        print(form)
 
     def test(self):
         self.set_form(*self.model.get_form())
@@ -48,3 +45,18 @@ class QRGenerator:
     def set_form(self, form, form_type):
         self.clear()
         self.view.set_form(form, form_type)
+
+    def generate(self, form, form_type):
+        if form_type not in self.form_types:
+            raise AssertionError(f"Invalid form type: {form_type}")
+
+        if form_type == self.form_types[0] or form_type == self.form_types[2]:  # URL or Text
+            print(f"form: {form}")
+            content_key = self.input_forms[form_type][0]
+            content_value = form[content_key]
+            print(content_value)
+            url = pyqrcode.create(content_value, error='L')
+            filename = 'code.png'
+            url.png(filename, scale=6, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xff])
+            self.view.set_picture(filename)
+            print(str(url))

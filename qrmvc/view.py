@@ -28,13 +28,15 @@ class QRGeneratorView:
         self.load_button.grid(column=0, row=2, sticky='nesw')
 
         self.save_button = tk.Button(self.window, text="Save to file",
-                                     command=lambda: self.controller.save_file({"type": self.type_ctrl.get(), "form": self.get_form()}))
+                                     command=lambda: self.controller.save_file(self.get_form(), self.type_ctrl.get()))
         self.save_button.grid(column=1, row=2, sticky='nesw')
 
-        self.clear_button = tk.Button(self.window, text="Clear", command=lambda: self.controller.select_type(self.type_ctrl.get()))
+        self.clear_button = tk.Button(self.window, text="Clear",
+                                      command=lambda: self.controller.select_type(self.type_ctrl.get()))
         self.clear_button.grid(column=2, row=2, sticky='nesw')
 
-        self.generate_button = tk.Button(self.window, text="Generate", command=self.controller.test)
+        self.generate_button = tk.Button(self.window, text="Generate",
+                                         command=lambda: self.controller.generate(self.get_form(), self.type_ctrl.get()))
         self.generate_button.grid(column=3, row=2, sticky='nesw')
 
         self.set_picture('sample.png')
