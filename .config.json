@@ -1,0 +1,8 @@
+{
+  "title": "QR Code Generator",
+  "code_types": [
+    "URL",
+    "SMS",
+    "Text"
+  ]
+}

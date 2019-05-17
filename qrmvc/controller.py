@@ -4,9 +4,11 @@ import qrmvc.view
 
 class QRGenerator:
     def __init__(self):
-        self.model = qrmvc.model.QRGenerator
-        self.view = qrmvc.view.QRGeneratorView
-        pass
+        self.model = qrmvc.model.QRGenerator()
+        self.title = self.model.title
+        self.code_types = self.model.code_types
+        self.view = qrmvc.view.QRGeneratorView(self)
+        self.view.window.mainloop()
 
     def select_type(self, form_type):
         pass
