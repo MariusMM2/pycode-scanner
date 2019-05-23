@@ -43,17 +43,16 @@ class QRGenerator:
         self.model.save_form(filename, {"type": form_type, "form": form})
 
     def save_code_file(self):
-        try:
+         try:
             filename = filedialog.asksaveasfile(initialdir="/", defaultextension=".png", title="Select location",
-                                                filetypes=[("JPEG", "*.jpg"),("All files", "*")])
+            filetypes=[("JPEG", "*.jpg"),("All files", "*")])
             print(filename)
             image = Image.open(self.temp_picture)
             image.save(filename)
 
-        except FileNotFoundError:
+         except FileNotFoundError:
             print("attempted to save nonexistent QR Code")
             return
-
     def clear(self):
         self.view.delete_picture()
 
