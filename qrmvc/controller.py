@@ -1,7 +1,7 @@
 from tkinter import filedialog
 
 import pyqrcode
-
+from PIL import Image
 import qrmvc.model
 import qrmvc.view
 
@@ -44,15 +44,15 @@ class QRGenerator:
 
     def save_code_file(self):
         try:
-            with open(self.temp_picture) as temp_picture:
-                # temp_picture.
-                pass
+            filename = filedialog.asksaveasfile(initialdir="/", defaultextension=".png", title="Select location",
+                                                filetypes=[("JPEG", "*.jpg"),("All files", "*")])
+            print(filename)
+            image = Image.open(self.temp_picture)
+            image.save(filename)
+
         except FileNotFoundError:
             print("attempted to save nonexistent QR Code")
             return
-
-        filename = filedialog.asksaveasfilename(initialdir="/", title="Select location", filetypes=(
-            ("json files", "*.json"), ("all files", "*.*")))
 
     def clear(self):
         self.view.delete_picture()
