@@ -35,7 +35,7 @@ class QRGenerator:
 
     def save_file(self, form, form_type):
 
-        filename = filedialog.asksaveasfilename(initialdir="/", title="Select location", filetypes=(
+        filename = filedialog.asksaveasfilename(initialdir="/", defaultextension=".json", title="Select location", filetypes=(
             ("json files", "*.json"), ("all files", "*.*")))
 
         print(f"Saving {form} to {filename}")
