@@ -94,3 +94,6 @@ class QRGenerator:
             url = pyqrcode.create(content_value, error='L')
             url.png(self.temp_picture)
             self.view.set_picture(self.temp_picture)
+
+    def stop(self):
+        self.model.delete_temp()
