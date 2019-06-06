@@ -6,7 +6,6 @@ from unittest import TestCase
 
 from qrmvc.QRModel import QRModel
 
-# CODE_TYPES_DIR = "../code_types"
 CODE_TYPES_DIR = os.path.join("..", "code_types")
 
 TEST_FORM_FILENAME = "test_form"
@@ -18,7 +17,6 @@ class TestQRModel(TestCase):
         pass
         self.model = unittest.mock.Mock(QRModel)
         self.model.code_folder = CODE_TYPES_DIR
-        # self.model = QRModel()
 
     def test_save_form(self):
         test_form = {"form": 1, "type": 2}
