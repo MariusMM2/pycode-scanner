@@ -2,7 +2,7 @@ import json
 import os
 
 
-class QRGenerator:
+class QRModel:
     def __init__(self):
         with open('.config.json') as config_file:
             # load the json config file to variables

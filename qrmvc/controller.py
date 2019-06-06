@@ -7,9 +7,9 @@ import qrmvc.view
 
 
 # noinspection PyArgumentList
-class QRGenerator:
+class QRController:
     def __init__(self):
-        self.model = qrmvc.model.QRGenerator()
+        self.model = qrmvc.model.QRModel()
 
         # config stuff
         self.title = self.model.title
