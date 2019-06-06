@@ -62,7 +62,7 @@ class QRGenerator:
         """ Saves the current QR Code to a .jpg file. """
 
         try:
-            filename = filedialog.asksaveasfile(initialdir="/", defaultextension=".png", title="Select location",
+            filename = filedialog.asksaveasfile(initialdir="/", defaultextension=".jpg", title="Select location",
                                                 filetypes=[("JPEG", "*.jpg"), ("All files", "*")])
             print(filename)
             image = Image.open(self.temp_picture)
