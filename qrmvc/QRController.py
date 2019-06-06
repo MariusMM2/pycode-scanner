@@ -2,6 +2,7 @@ from tkinter import filedialog
 
 import pyqrcode
 from PIL import Image
+
 import qrmvc.QRModel
 import qrmvc.QRView
 
@@ -93,11 +94,21 @@ class QRController:
         :param form_type: The type of the form used to structure the QR Code.
         """
 
+        if form_type not in self.form_types:
+            raise AssertionError(f"Unknown form type: {form_type}")
+
         print(f"form: {form}")
 
         # the contents of the QR Code
         code_format = self.input_forms[form_type]["code_format"]
-        content_value = code_format.format(*form.values())
+
+        try:
+            if not code_format.count("{") == code_format.count("}") == len(form.values()):
+                raise AttributeError
+
+            content_value = code_format.format(*form.values())
+        except IndexError:
+            raise AttributeError(f"values {form.values()} can't be applied to format {code_format}")
 
         if content_value is not None:
             print(f"contents: {content_value}")
@@ -107,9 +118,6 @@ class QRController:
             url.png(self.temp_picture)
             # present the generated code
             self.view.set_picture(self.temp_picture)
-
-        if form_type not in self.form_types:
-            raise AssertionError(f"Unknown form type: {form_type}")
 
     def stop(self):
         """ Callback called when the program closes. """
