@@ -6,7 +6,7 @@ from qrmvc.TextWithVar import TextWithVar
 from qrmvc.VerticalScrolledFrame import VerticalScrolledFrame
 
 
-class QRGeneratorView:
+class QRView:
     def __init__(self, controller):
         self.controller = controller
 
@@ -77,7 +77,7 @@ class QRGeneratorView:
 
         # generate a dictionary containing StringVars for each field, with each StringVar holding a field value
         # from the parameter
-        self.form_dict = {str(field): QRGeneratorView.new_string_var(form[field]) for field in form_fields}
+        self.form_dict = {str(field): QRView.new_string_var(form[field]) for field in form_fields}
         print({k: v.get() for k, v in self.form_dict.items()})
 
         # generate the UI widgets for the fields

@@ -20,7 +20,7 @@ class QRController:
         self.picture_size = self.model.picture_size
 
         # create the view
-        self.view = qrmvc.view.QRGeneratorView(self)
+        self.view = qrmvc.view.QRView(self)
         # set default code type to URL
         self.select_type(self.form_types[0])
         # start the main tkinter loop
