@@ -2,14 +2,14 @@ from tkinter import filedialog
 
 import pyqrcode
 from PIL import Image
-import qrmvc.model
-import qrmvc.view
+import qrmvc.QRModel
+import qrmvc.QRView
 
 
 # noinspection PyArgumentList
 class QRController:
     def __init__(self):
-        self.model = qrmvc.model.QRModel()
+        self.model = qrmvc.QRModel.QRModel()
 
         # config stuff
         self.title = self.model.title
@@ -20,7 +20,7 @@ class QRController:
         self.picture_size = self.model.picture_size
 
         # create the view
-        self.view = qrmvc.view.QRView(self)
+        self.view = qrmvc.QRView.QRView(self)
         # set default code type to URL
         self.select_type(self.form_types[0])
         # start the main tkinter loop
