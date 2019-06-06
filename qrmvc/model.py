@@ -8,8 +8,12 @@ class QRGenerator:
             # load the json config file to variables
             config = json.load(config_file)
             self.title = config['title']
-            self.input_forms = config['input_forms']
-            self.form_types = list(self.input_forms.keys())
+            #
+            self.code_folder = config['code_folder']
+
+            self.input_forms = self.load_codes()
+            self.form_types = [code_title for code_title in self.input_forms.keys()]
+
             self.default_picture = config['default_picture']
             self.temp_picture = config['temp_picture']
             self.picture_size = config['picture_size']
@@ -51,3 +55,17 @@ class QRGenerator:
         except FileNotFoundError:
             print("temp picture not found")
             pass
+
+    def get_code_files(self):
+        return [code_name for code_name in
+                list(filter(lambda file: ".json" in file, os.listdir(self.code_folder)))]
+
+    def load_codes(self):
+        codes = {}
+        for code_file_handle in self.get_code_files():
+            with open(os.path.join(self.code_folder, code_file_handle)) as code_file:
+                code_json = json.load(code_file)
+                code_name = code_json['title']
+                codes[code_name] = code_json
+
+        return codes

@@ -3,33 +3,6 @@
   "default_picture": "blank.png",
   "temp_picture": "temp.png",
   "picture_size": 300,
-  "input_forms": {
-    "URL": {
-      "code_format": "{0}",
-      "fields": [
-        "Website (URL)"
-      ]
-    },
-    "SMS": {
-      "code_format": "SMSTO: {0}: {1}",
-      "fields": [
-        "Phone Number",
-        "Message"
-      ]
-    },
-    "Text": {
-      "code_format": "{0}",
-      "fields": [
-        "Text"
-      ]
-    },
-    "Email": {
-      "code_format": "MATMSG:TO:{0};SUB:{1};BODY:{2};;",
-      "fields": [
-        "Recipient",
-        "Subject",
-        "Body#big"
-      ]
-    }
-  }
+  "code_folder": "code_types"
+
 }

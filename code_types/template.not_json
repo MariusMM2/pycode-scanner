@@ -1,0 +1,8 @@
+{
+  "title": "title",
+  "code_format": "first item: {0}, second item: {1}",
+  "fields": [
+    "First Item",
+    "Second Item"
+  ]
+}

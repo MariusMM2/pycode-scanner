@@ -1,0 +1,8 @@
+{
+  "title": "SMS",
+  "code_format": "SMSTO: {0}: {1}",
+  "fields": [
+    "Phone Number",
+    "Message"
+  ]
+}

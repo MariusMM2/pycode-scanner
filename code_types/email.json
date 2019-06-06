@@ -1,0 +1,9 @@
+{
+  "title": "Email",
+  "code_format": "MATMSG:TO:{0};SUB:{1};BODY:{2};;",
+  "fields": [
+    "Recipient",
+    "Subject",
+    "Body#big"
+  ]
+}
