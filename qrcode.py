@@ -1,6 +1,6 @@
-import qrmvc.controller
+import qrmvc.QRController
 
 if __name__ == '__main__':
     """ Program entry point  """
-    controller = qrmvc.controller.QRController()
+    controller = qrmvc.QRController.QRController()
     controller.stop()
