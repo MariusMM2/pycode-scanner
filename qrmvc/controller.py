@@ -121,7 +121,7 @@ class QRGenerator:
             content_value = f"MATMSG:TO:{content_recipient};SUB:{content_subject};BODY:{content_body};;"
 
         if content_value is not None:
-            print(f"content: {content_value}")
+            print(f"contents: {content_value}")
             # generate the QR Code
             url = pyqrcode.create(content_value, error='L')
             # save the code to a temporary file
