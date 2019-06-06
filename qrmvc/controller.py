@@ -39,7 +39,7 @@ class QRGenerator:
         """ Shows the dialog for selecting a form file and loads the file. """
 
         filename = filedialog.askopenfilename(initialdir="/", title="Select file", filetypes=(
-            ("json files", "*.json"), ("all files", "*.*")))
+            ("JSON files", "*.json"), ("All files", "*.*")))
 
         self.set_form(*self.model.load_form(filename))
 
@@ -52,7 +52,7 @@ class QRGenerator:
 
         filename = filedialog.asksaveasfilename(initialdir="/", defaultextension=".json", title="Select location",
                                                 filetypes=(
-                                                    ("json files", "*.json"), ("all files", "*.*")))
+                                                    ("JSON files", "*.json"), ("All files", "*.*")))
 
         print(f"Saving {form} to {filename}")
 
