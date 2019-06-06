@@ -4,20 +4,32 @@
   "temp_picture": "temp.png",
   "picture_size": 300,
   "input_forms": {
-    "URL": [
-      "Website (URL)"
-    ],
-    "SMS": [
-      "Phone number",
-      "Message"
-    ],
-    "Text": [
-      "Text"
-    ],
-    "Email": [
-      "Recipient",
-      "Subject",
-      "Body#big"
-    ]
+    "URL": {
+      "code_format": "{0}",
+      "fields": [
+        "Website (URL)"
+      ]
+    },
+    "SMS": {
+      "code_format": "SMSTO: {0}: {1}",
+      "fields": [
+        "Phone Number",
+        "Message"
+      ]
+    },
+    "Text": {
+      "code_format": "{0}",
+      "fields": [
+        "Text"
+      ]
+    },
+    "Email": {
+      "code_format": "MATMSG:TO:{0};SUB:{1};BODY:{2};;",
+      "fields": [
+        "Recipient",
+        "Subject",
+        "Body#big"
+      ]
+    }
   }
 }

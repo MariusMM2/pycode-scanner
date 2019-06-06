@@ -33,7 +33,7 @@ class QRGenerator:
         """
 
         self.clear()
-        self.view.set_form({k: '' for k in self.input_forms[form_type]}, form_type)
+        self.view.set_form({k: '' for k in self.input_forms[form_type]['fields']}, form_type)
 
     def load_file(self):
         """ Shows the dialog for selecting a form file and loads the file. """
@@ -96,29 +96,8 @@ class QRGenerator:
         print(f"form: {form}")
 
         # the contents of the QR Code
-        global content_value
-
-        if form_type == self.form_types[0] or form_type == self.form_types[2]:  # URL or Text
-            content_key = self.input_forms[form_type][0]
-            content_value = form[content_key]
-            print(f"URL: {content_value}")
-
-        elif form_type == self.form_types[1]:  # SMS
-            content_keys = self.input_forms[form_type]
-            content_number = form[content_keys[0]]
-            content_message = form[content_keys[1]]
-            print(f"number: {content_number}, message: {content_message}")
-
-            content_value = f"SMSTO: {content_number}: {content_message}"
-
-        elif form_type == self.form_types[3]:  # Email
-            content_keys = self.input_forms[form_type]
-            content_recipient = form[content_keys[0]]
-            content_subject = form[content_keys[1]]
-            content_body = form[content_keys[2]]
-            print(f"recipient: {content_recipient}, subject: {content_subject}, body: {content_body}")
-
-            content_value = f"MATMSG:TO:{content_recipient};SUB:{content_subject};BODY:{content_body};;"
+        code_format = self.input_forms[form_type]["code_format"]
+        content_value = code_format.format(*form.values())
 
         if content_value is not None:
             print(f"contents: {content_value}")

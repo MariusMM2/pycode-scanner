@@ -9,7 +9,7 @@ class QRGenerator:
             config = json.load(config_file)
             self.title = config['title']
             self.input_forms = config['input_forms']
-            self.form_types = list(self.input_forms)
+            self.form_types = list(self.input_forms.keys())
             self.default_picture = config['default_picture']
             self.temp_picture = config['temp_picture']
             self.picture_size = config['picture_size']
