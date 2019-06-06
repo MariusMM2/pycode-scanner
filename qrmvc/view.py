@@ -78,7 +78,7 @@ class QRGeneratorView:
         # generate a dictionary containing StringVars for each field, with each StringVar holding a field value
         # from the parameter
         self.form_dict = {str(field): QRGeneratorView.new_string_var(form[field]) for field in form_fields}
-        print(self.form_dict)
+        print({k: v.get() for k, v in self.form_dict.items()})
 
         # generate the UI widgets for the fields
         for field_name in form_fields:
