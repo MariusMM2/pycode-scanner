@@ -53,3 +53,4 @@ class TestQRModel(TestCase):
 
         if fake_code in codes.values():
             self.fail()
+
