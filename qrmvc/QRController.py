@@ -42,7 +42,8 @@ class QRController:
         filename = filedialog.askopenfilename(initialdir="/", title="Select file", filetypes=(
             ("JSON files", "*.json"), ("All files", "*.*")))
 
-        self.set_form(*self.model.load_form(filename))
+        if filename:
+            self.set_form(*self.model.load_form(filename))
 
     def save_file(self, form, form_type):
         """ Saves the current form to a file.
@@ -55,9 +56,9 @@ class QRController:
                                                 filetypes=(
                                                     ("JSON files", "*.json"), ("All files", "*.*")))
 
-        print(f"Saving {form} to {filename}")
-
-        self.model.save_form(filename, {"type": form_type, "form": form})
+        if filename:
+            print(f"Saving {form} to {filename}")
+            self.model.save_form(filename, {"type": form_type, "form": form})
 
     def save_code_file(self):
         """ Saves the current QR Code to a .jpg file. """
@@ -65,9 +66,10 @@ class QRController:
         try:
             filename = filedialog.asksaveasfile(initialdir="/", defaultextension=".jpg", title="Select location",
                                                 filetypes=[("JPEG", "*.jpg"), ("All files", "*")])
-            print(filename)
-            image = Image.open(self.temp_picture)
-            image.save(filename)
+            if filename:
+                print(filename)
+                image = Image.open(self.temp_picture)
+                image.save(filename)
 
         except FileNotFoundError:
             print("attempted to save nonexistent QR Code")
